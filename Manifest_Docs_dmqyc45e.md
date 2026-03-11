@@ -11,6 +11,8 @@
 | Sitio en producción | https://verticelab.pages.dev/ |
 | Github | https://github.com/pauloski/agencia |
 | Live Manifest | https://manifest-web-2ab.pages.dev/?id=dmqyc45e |
+| Blog de opinión de Karen | https://chrysalis.cl/marzo-cuando-la-confianza-se-convierte-en-ventaja-competitiva/ |
+| Behance Paulo | https://www.behance.net/pauloski |
 
 ## 🚦 Estados del Proyecto
 | Estado | Color Hex | Descripción |

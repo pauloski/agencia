@@ -1,4 +1,4 @@
-# 📊 Vertice
+# 📊 Verticelab
 
 **Versión:** V1<br>
 **Estado:** Work in Progress<br>
@@ -11,6 +11,8 @@
 | Sitio en producción | https://verticelab.pages.dev/ |
 | Github | https://github.com/pauloski/agencia |
 | Live Manifest | https://manifest-web-2ab.pages.dev/?id=dmqyc45e |
+| Blog de opinión de Karen | https://chrysalis.cl/marzo-cuando-la-confianza-se-convierte-en-ventaja-competitiva/ |
+| Behance Paulo | https://www.behance.net/pauloski |
 
 ## 🚦 Estados del Proyecto
 | Estado | Color Hex | Descripción |
@@ -33,6 +35,17 @@
 | 🗄 Archive | Cosas abandonadas o antiguas. |
 
 ## 📸 Registro de trabajo en progreso (WIP)
+
+**Snapshot name:** Concept Art -1 [Barco]<br>
+**Date:** 11/03/2026 17:53<br>
+**Note:** Primera exploración visual de contexto regional + líneas geométricas como vértice<br>
+**Project version:** V1<br>
+**Snapshot Id:** 2329792744389327311<br>
+**State Snapshot:** Work in Progress<br>
+**link to snapshot:** [Ir a la sección](https://www.figma.com/design/AtH4juu1hgS0dgYM8ZdoKk/Verticelab?node-id=4-470)<br>
+**Version link snapshot:** [Version link Snapshot](https://www.figma.com/design/AtH4juu1hgS0dgYM8ZdoKk/Verticelab?version-id=2329792744389327311&node-id=4-470)<br>
+**Figma Audit:** 0 Variables, 0 Componentes<br>
+***
 
 **Snapshot name:** Protoype-1<br>
 **Date:** 11/03/2026 17:27<br>
