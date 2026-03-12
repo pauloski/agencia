@@ -18,11 +18,13 @@
             --bg-color: #ffffff;
             --text-color: #171717;
             --text-muted: #52525b;
-            --accent-color: #2563eb; /* Azul eléctrico */
-            --accent-text: #ffffff;
+             --text-on-accent: #ffffff;
+            --accent-color: #950BE0; /* NUEVO: Saturated yellow-green from image_42.png */
+            --accent-text: #171717;  /* Black text for contrast on green bg */
             --card-bg: #f4f4f5;
             --border-color: #e4e4e7;
             --nav-bg: rgba(255, 255, 255, 0.85);
+            --stroke-path: #171717;
             
             --font-heading: 'Syne', sans-serif;
             --font-body: 'Inter', sans-serif;
@@ -34,11 +36,13 @@
             --bg-color: #050505;
             --text-color: #f4f4f5;
             --text-muted: #a1a1aa;
-            --accent-color: #d4ff00; /* Neón tecnológico */
-            --accent-text: #000000;
+            --text-on-accent: #000000; /* NUEVO: Black text on neon green */   
+            --accent-color: #DDFD52; /* NUEVO: Consistency in the neon green */
+            --accent-text: #050505;  /* Black text for contrast on green bg */
             --card-bg: #111111;
             --border-color: #222222;
             --nav-bg: rgba(5, 5, 5, 0.85);
+            --stroke-path: #ffffff;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -84,33 +88,227 @@
             transition: background-color var(--transition-fast), border-color var(--transition-fast);
         }
 
+        /* UPDATED: Logo is now an image container, not text */
         .logo { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; }
+        
+        .logo-img {
+            max-height: 2.5rem; /* Set a consistent height */
+            width: auto;
+            display: block; /* Avoid inline spacing issues */
+        }
 
         .nav-actions { display: flex; gap: 1rem; align-items: center; }
 
-        .btn-theme {
-            background: none;
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            font-family: var(--font-body);
-            font-weight: 500;
-            transition: var(--transition-fast);
+        /* ----- UPDATED: BENTO THEME TOGGLE (image_53.png) ----- */
+        .btn-theme-wrapper {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem; /* GAP: Espacio entre switch y texto */
+            background: transparent;
         }
 
-        .btn-theme:hover { background: var(--card-bg); }
+        .btn-theme {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            position: relative;
+            display: block;
+            width: 6rem; /* Ancho de la pill */
+            height: 2.5rem; /* Alto de la pill */
+        }
+
+        .btn-theme .track {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            border-radius: 5rem;
+            border: 2px solid var(--accent-color); /* BORDE: Color de acento */
+            overflow: hidden;
+            position: relative;
+            transition: border-color var(--transition-fast);
+        }
+
+        .btn-theme .side {
+            display: flex;
+            width: 50%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+            transition: opacity var(--transition-fast);
+        }
+
+        .btn-theme .side-light {
+            background-color: #dae0ea26; /* Color de fondo claro */
+            position: relative;
+        }
+
+        .btn-theme .side-dark {
+            background-color: #dae0ea26; /* Color de fondo oscuro */
+            position: relative;
+           
+        }
+
+        /* ----- ICONOS VECTORIALES (Sin Emojis) ----- */
+        .btn-theme .icon {
+            width: 1.2rem;
+            height: 1.2rem;
+            display: block;
+        }
+
+        .icon-sun { fill: #f4f4f5; } /* Sol vectorial (yellow) */
+        .icon-moon { fill: #f4f4f5; } /* Luna vectorial (muted light grey) */
+
+        /* ----- THUMB (Color de Acento) ----- */
+        .btn-theme .thumb {
+            position: absolute;
+            display: block;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background-color: var(--accent-color); /* THUMB: Color de acento */
+            left: 0rem;
+            top: -0.1rem;
+            transition: transform var(--transition-fast), background-color var(--transition-fast);
+            z-index: 2;
+        }
+
+        .btn-theme-text {
+            color: var(--text-color);
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* ----- LÓGICA DE ACTIVACIÓN (CSS) ----- */
+        .btn-theme.dark-active .side-dark {  }
+        .btn-theme.dark-active .side-light {  }
+        .btn-theme.dark-active .thumb {
+            transform: translateX(3.5rem); /* Distancia de deslizamiento (ancho - thumb - padding) */
+        }
+
+        /* ----- HOVER & CLARO MODO STYLES (MANTENER) ----- */
+        .btn-theme:hover .track {
+             border-color: var(--accent-color);
+        }
 
         .btn-primary {
             background: var(--accent-color);
-            color: var(--accent-text);
+            color: var(--text-on-accent);
             padding: 0.8rem 1.5rem;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
             transition: var(--transition-fast);
         }
+
+
+
+.btn-theme-wrapper {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: transparent;
+        }
+
+        .btn-theme {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            position: relative;
+            display: block;
+            width: 4.5rem; /* Ancho optimizado */
+            height: 2.2rem;
+            border-radius: 5rem;
+            outline: none; /* Quita el focus por defecto */
+        }
+
+        /* Efecto de focus sutil y estético */
+        .btn-theme:focus-visible {
+            box-shadow: 0 0 0 3px var(--accent-color);
+            transition: box-shadow 0.2s ease;
+        }
+
+        .btn-theme .track {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            border-radius: 5rem;
+            border: 2px solid var(--accent-color);
+            background: var(--card-bg); /* Fondo interno consistente */
+            position: relative;
+            transition: all var(--transition-fast);
+            overflow: hidden;
+        }
+
+        .btn-theme .side {
+            display: flex;
+            width: 50%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            transition: color var(--transition-fast);
+        }
+
+        /* Iconos: Color dinámico */
+        .btn-theme .icon {
+            width: 1rem;
+            height: 1rem;
+            fill: none;
+            stroke: var(--text-muted); /* Color apagado por defecto */
+            transition: stroke var(--transition-fast), transform var(--transition-fast);
+        }
+
+        /* THUMB: El círculo deslizante */
+        .btn-theme .thumb {
+            position: absolute;
+            display: block;
+            width: 1.8rem;
+            height: 1.8rem;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            top: 50%;
+            left: 0.2rem;
+            transform: translateY(-50%);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 2;
+        }
+
+        /* LÓGICA DE ESTADOS (ACTIVO) */
+        
+        /* Cuando es LIGHT (default): Icono sol brilla */
+        [data-theme="light"] .icon-sun { 
+            stroke: var(--text-on-accent); 
+        }
+
+        /* Cuando es DARK: El thumb se mueve y brilla la luna */
+        .btn-theme.dark-active .thumb {
+            transform: translate(2.3rem, -50%);
+        }
+
+        .btn-theme.dark-active .icon-moon {
+            stroke: var(--stroke-path);
+        }
+
+        .btn-theme.dark-active .icon-sun {
+            stroke: var(--stroke-path);
+        }
+
+        .btn-theme-text {
+            color: var(--text-color);
+            font-family: var(--font-heading);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+
+
+
+
 
         .btn-primary:hover { transform: scale(1.05); opacity: 0.9; }
 
@@ -163,9 +361,10 @@
         .services-header { margin-bottom: 4rem; }
         .services-header h2 { font-size: 3rem; }
 
+        /* ================= DIAGRAMACIÓN BENTO (NUEVO) ================= */
         .grid-services {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(3, 1fr); /* 3 columnas explícitas para Bento */
             gap: 2rem;
         }
 
@@ -177,6 +376,8 @@
             transition: var(--transition-fast);
             cursor: pointer;
             position: relative;
+            display: flex;
+            flex-direction: column;
         }
 
         .service-card:hover {
@@ -190,13 +391,27 @@
             border-color: var(--accent-color);
             background: var(--bg-color);
         }
+
+        /* ----- Estilos Específicos para Bento Spans ----- */
+        .bento-highlight { grid-column: span 2; } /* Fila 1: Caja 1 ocupa 2 columnas */
+        .bento-marketing-a { grid-column: span 1; background: var(--accent-color); color: var(--text-on-accent); padding: 2.5rem 2rem; border-radius: 16px; display: flex; align-items: center; text-align: center; justify-content: center; } /* Fila 1: Caja 2 ocupa 1 columna */
+        
+        .bento-ux { grid-column: span 1; } /* Fila 2: Caja 1 ocupa 1 columna */
+        .bento-branding { grid-column: span 1; } /* Fila 2: Caja 2 ocupa 1 columna */
+        .bento-marketing-b { grid-column: span 1; background: var(--card-bg); padding: 2.5rem 2rem; border-radius: 16px; border: 1px solid var(--border-color); display: flex; align-items: center; text-align: center; justify-content: center; font-style: italic; } /* Fila 2: Caja 3 ocupa 1 columna */
+        
+        .bento-growth { grid-column: span 3; } /* Fila 3: Caja final ocupa toda la anchura para equilibrio */
+
+        /* ----- Killer Texts Styling ----- */
+        .bento-marketing-text { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 700; line-height: 1.2; letter-spacing: -1px; }
+
         
         .badge {
             position: absolute;
             top: -15px;
             right: 20px;
             background: var(--accent-color);
-            color: var(--accent-text);
+            color: var(--text-on-accent);
             padding: 0.4rem 1rem;
             border-radius: 50px;
             font-size: 0.8rem;
@@ -206,12 +421,13 @@
         }
 
         .service-card h3 { font-size: 1.6rem; margin-bottom: 1rem; }
-        .service-card p { color: var(--text-muted); margin-bottom: 1.5rem; }
+        .service-card p { color: var(--text-muted); margin-bottom: 1.5rem; flex-grow: 1; }
         
         .deliverables {
             list-style: none;
             border-top: 1px solid var(--border-color);
             padding-top: 1.5rem;
+            margin-top: auto; /* Asegura que la lista se empuje al fondo de la caja si hay espacio */
         }
 
         .deliverables li {
@@ -263,15 +479,43 @@
             border-top: 1px solid var(--border-color);
         }
 
+        /* ================= MEDIA QUERIES (BENTO RESPONSIVE) (NUEVO) ================= */
+        @media (max-width: 900px) { /* Breakpoint para el Bento flow */
+            .grid-services {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+            .service-card, .bento-marketing-a, .bento-marketing-b {
+                grid-column: span 1 !important; /* Desactivar spans en mobile */
+            }
+        }
+
         .gsap-reveal { opacity: 0; transform: translateY(40px); }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo">VerticeLab<span class="text-accent">.</span></div>
+        <div class="logo">
+            <img id="main-logo" src="images/logo-light.svg" alt="VérticeLab Logo" class="logo-img">
+        </div>
         <div class="nav-actions">
-            <button class="btn-theme" id="theme-toggle">🌓 Modo</button>
+            <div class="btn-theme-wrapper">
+                <button class="btn-theme" id="theme-toggle" aria-label="Cambiar tema">
+                    <span class="track">
+                        <span class="side side-light">
+                            <svg class="icon icon-sun" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 7V3M12 21V17M17.657 6.343L20.485 3.515M3.515 20.485L6.343 17.657M21 12H17M3 12H7M17.657 17.657L20.485 20.485M3.515 3.515L6.343 6.343M12 16a4 4 0 110-8 4 4 0 010 8z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                        </span>
+                        <span class="side side-dark">
+                            <svg class="icon icon-moon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.37 5.37 0 01-4.4 2.26 5.4 5.4 0 01-5.4-5.4c0-1.31.47-2.52 1.26-3.46A9.03 9.03 0 0012 3z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                        </span>
+                        <span class="thumb"></span>
+                    </span>
+                </button>
+            <!--
+                 <span class="btn-theme-text">Modo</span>
+                -->
+               
+            </div>
             <a href="#contacto" class="btn-primary">Hablemos</a>
         </div>
     </nav>
@@ -296,7 +540,7 @@
             </div>
             
             <div class="grid-services">
-                <div class="service-card highlight gsap-reveal">
+                <div class="service-card highlight bento-highlight gsap-reveal">
                     <span class="badge">El más elegido</span>
                     <h3>Product Discovery Sprint</h3>
                     <p>Para emprendedores que quieren crear un producto digital desde cero. Validamos tu idea en tiempo récord antes de escribir una sola línea de código.</p>
@@ -308,7 +552,11 @@
                     </ul>
                 </div>
 
-                <div class="service-card gsap-reveal">
+                <div class="bento-marketing-a gsap-reveal">
+                    <p class="bento-marketing-text">VérticeLab no es una fábrica de software. Somos tu laboratorio de innovación y crecimiento. No construimos código; construimos negocios.</p>
+                </div>
+
+                <div class="service-card bento-ux gsap-reveal">
                     <h3>UX/UI & Design Systems</h3>
                     <p>Para empresas que ya tienen un producto pero necesitan mejorar la experiencia, retener usuarios y escalar visualmente.</p>
                     <ul class="deliverables">
@@ -319,7 +567,7 @@
                     </ul>
                 </div>
 
-                <div class="service-card gsap-reveal">
+                <div class="service-card bento-branding gsap-reveal">
                     <h3>Digital Branding</h3>
                     <p>Las marcas digitales no se comportan como las tradicionales. Creamos identidades visuales pensadas nativamente para pantallas y apps.</p>
                     <ul class="deliverables">
@@ -329,7 +577,11 @@
                     </ul>
                 </div>
 
-                <div class="service-card gsap-reveal">
+                <div class="bento-marketing-b gsap-reveal">
+                    <p class="bento-marketing-text">"La incubadora te enseña a volar. Nosotros te construimos el cohete."</p>
+                </div>
+
+                <div class="service-card bento-growth gsap-reveal">
                     <h3>Digital Growth Strategy</h3>
                     <p>Para productos digitales que ya están en el mercado y necesitan crecer de forma estructurada, predecible y basada en datos.</p>
                     <ul class="deliverables">
@@ -366,7 +618,9 @@
 
     <footer>
         <div class="container">
-            <div class="logo">VerticeLab<span class="text-accent">.</span></div>
+            <div class="logo">
+                <img id="footer-logo" src="images/logo-light.svg" alt="VérticeLab Logo" class="logo-img">
+            </div>
             <p style="margin-top: 1rem; color: var(--text-muted);">© 2026 VerticeLab. Apoyando el talento digital desde Valparaíso.</p>
         </div>
     </footer>
@@ -375,12 +629,62 @@
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
-        // --- SOLUCIÓN PARA REEMPLAZO DE IMÁGENES ---
+        // --- SOLUCIÓN PARA REEMPLAZO DE IMÁGENES & LOGOS (UPDATED) ---
 
-        // 1. Seleccionamos las imágenes específicas por su atributo 'alt'
+        // 1. Seleccionamos las imágenes de los logos por ID
+        const mainLogoImg = document.getElementById('main-logo');
+        const footerLogoImg = document.getElementById('footer-logo');
+
+        // 2. Seleccionamos las imágenes específicas del equipo por su atributo 'alt' (mantener lógica anterior)
         const karenImg = document.querySelector('.team-member img[alt="Karen Bravo"]');
         const pauloImg = document.querySelector('.team-member img[alt="Paulo Correa"]');
 
+        // 3. Breakpoint de mobile (por ejemplo, 768px, coincide con CSS si usaras media queries)
+        const mobileBreakpoint = 768; 
+
+        // 4. Función centralizada para actualizar todas las imágenes según tema y tamaño
+        function updateImages(theme, isMobile) {
+            // A. Actualizar Logos (según 4 archivos SVG)
+            let logoFile = '';
+            if (isMobile) {
+                // Móvil: usar versión contracted (Vé_)
+                logoFile = theme === 'dark' ? 'logo-mobile-dark.svg' : 'logo-mobile-light.svg';
+            } else {
+                // Escritorio: usar versión full (VérticeLab)
+                logoFile = theme === 'dark' ? 'logo-dark.svg' : 'logo-light.svg';
+            }
+            const logoPath = `images/${logoFile}`;
+            
+            // Actualizar ambos logos (nav y footer)
+            mainLogoImg.src = logoPath;
+            footerLogoImg.src = logoPath;
+
+            // B. Actualizar imágenes del equipo (lógica original)
+            if (theme === 'dark') {
+                karenImg.src = 'images/karen-dark.png';
+                pauloImg.src = 'images/paulo-dark.png';
+            } else {
+                karenImg.src = 'images/karen.png';
+                pauloImg.src = 'images/paulo.png';
+            }
+        }
+
+        // 5. Función para manejar el evento de cambio de tamaño de ventana (resize)
+        function handleResize() {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const isMobile = window.innerWidth <= mobileBreakpoint;
+            updateImages(currentTheme, isMobile);
+        }
+
+        // Añadir el listener para resize para reaccionar al cambio desktop/mobile
+        window.addEventListener('resize', handleResize);
+
+        // 6. Carga inicial de imágenes correcta según el estado actual
+        const initialIsMobile = window.innerWidth <= mobileBreakpoint;
+        updateImages(htmlElement.getAttribute('data-theme'), initialIsMobile);
+
+
+        // --- ACTUALIZACIÓN DE LÓGICA DEL BOTÓN (MANTENER & EXTENDER) ---
         themeToggleBtn.addEventListener('click', () => {
             const currentTheme = htmlElement.getAttribute('data-theme');
             const newTheme = currentTheme === 'light' ? 'dark' : 'light';
@@ -388,16 +692,18 @@
             // A. Cambiamos el tema del HTML (lógica original)
             htmlElement.setAttribute('data-theme', newTheme);
 
-            // B. Cambiamos las imágenes según el nuevo tema
-            if (newTheme === 'dark') {
-                karenImg.src = 'images/karen-dark.png';
-                pauloImg.src = 'images/paulo-dark.png';
-            } else {
-                // Volvemos a las imágenes originales para el modo claro
-                karenImg.src = 'images/karen.png';
-                pauloImg.src = 'images/paulo.png';
-            }
+            // B. NEW: Alternar clase CSS para el deslizamiento del botón (Bento style)
+            themeToggleBtn.classList.toggle('dark-active');
+
+            // C. Actualizamos todas las imágenes basadas en el nuevo tema y el tamaño actual
+            const currentIsMobile = window.innerWidth <= mobileBreakpoint;
+            updateImages(newTheme, currentIsMobile);
         });
+
+        // ----- NEW: Comprobación inicial para el estado del botón deslizante -----
+        if (htmlElement.getAttribute('data-theme') === 'dark') {
+            themeToggleBtn.classList.add('dark-active');
+        }
 
         // --------------------------------------------
 
