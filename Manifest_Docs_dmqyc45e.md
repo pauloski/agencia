@@ -1,4 +1,4 @@
-# 📊 Vertice
+# 📊 Verticelab
 
 **Versión:** V1<br>
 **Estado:** Work in Progress<br>
@@ -35,6 +35,28 @@
 | 🗄 Archive | Cosas abandonadas o antiguas. |
 
 ## 📸 Registro de trabajo en progreso (WIP)
+
+**Snapshot name:** Concept Art-2 [Dir Arte]<br>
+**Date:** 11/03/2026 22:59<br>
+**Note:** Fotos de equipo con Nano Banana <br>
+**Project version:** V1<br>
+**Snapshot Id:** 2329878343075067712<br>
+**State Snapshot:** Work in Progress<br>
+**link to snapshot:** [Ir a la sección](https://www.figma.com/design/AtH4juu1hgS0dgYM8ZdoKk/Verticelab?node-id=18-1048)<br>
+**Version link snapshot:** [Version link Snapshot](https://www.figma.com/design/AtH4juu1hgS0dgYM8ZdoKk/Verticelab?version-id=2329878343075067712&node-id=18-1048)<br>
+**Figma Audit:** 0 Variables, 0 Componentes<br>
+***
+
+**Snapshot name:** Concept Art -1 [Barco]<br>
+**Date:** 11/03/2026 17:53<br>
+**Note:** Primera exploración visual de contexto regional + líneas geométricas como vértice<br>
+**Project version:** V1<br>
+**Snapshot Id:** 2329792744389327311<br>
+**State Snapshot:** Work in Progress<br>
+**link to snapshot:** [Ir a la sección](https://www.figma.com/design/AtH4juu1hgS0dgYM8ZdoKk/Verticelab?node-id=4-470)<br>
+**Version link snapshot:** [Version link Snapshot](https://www.figma.com/design/AtH4juu1hgS0dgYM8ZdoKk/Verticelab?version-id=2329792744389327311&node-id=4-470)<br>
+**Figma Audit:** 0 Variables, 0 Componentes<br>
+***
 
 **Snapshot name:** Protoype-1<br>
 **Date:** 11/03/2026 17:27<br>
