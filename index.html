@@ -11,7 +11,7 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
+<script src="https://static.form-data.com/js/form-data-tools.v1.min.js"></script>
     <style>
         /* ================= VARIABLES MODO CLARO (Default) ================= */
         :root {
@@ -19,7 +19,7 @@
             --text-color: #171717;
             --text-muted: #52525b;
              --text-on-accent: #ffffff;
-            --accent-color: #950BE0; /* NUEVO: Saturated yellow-green from image_42.png */
+            --accent-color: #0B95E0; /* NUEVO: Saturated yellow-green from image_42.png */
             --accent-text: #171717;  /* Black text for contrast on green bg */
             --card-bg: #f4f4f5;
             --border-color: #e4e4e7;
@@ -37,7 +37,7 @@
             --text-color: #f4f4f5;
             --text-muted: #a1a1aa;
             --text-on-accent: #000000; /* NUEVO: Black text on neon green */   
-            --accent-color: #DDFD52; /* NUEVO: Consistency in the neon green */
+            --accent-color: #22C4FF; /* NUEVO: Consistency in the neon green */
             --accent-text: #050505;  /* Black text for contrast on green bg */
             --card-bg: #111111;
             --border-color: #222222;
@@ -490,6 +490,159 @@
         }
 
         .gsap-reveal { opacity: 0; transform: translateY(40px); }
+
+        /* ================= INFINITE SCROLL TAPE ================= */
+        .scroll-tape {
+            width: 100%;
+            overflow: hidden;
+            background: var(--bg-color);
+            padding: 3rem 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .tape-container {
+            display: flex;
+            gap: 4rem;
+            animation: scrollTape 25s linear infinite;
+            white-space: nowrap;
+        }
+
+        .tape-item {
+            flex-shrink: 0;
+            font-family: var(--font-heading);
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: var(--text-color);
+            letter-spacing: -1px;
+            display: inline-flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .tape-item .separator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            flex-shrink: 0;
+        }
+
+        @keyframes scrollTape {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Pausar animación en hover */
+        .scroll-tape:hover .tape-container {
+            animation-play-state: paused;
+        }
+
+
+/* ================= CONTACT FORM STYLES ================= */
+.contact-section { padding: 8rem 0; border-top: 1px solid var(--border-color); }
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background: var(--card-bg);
+    padding: 2.5rem;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+}
+
+.form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.form-group label {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.form-control {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 1rem;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    transition: var(--transition-fast);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(34, 196, 255, 0.1);
+}
+
+.btn-submit {
+    background: var(--accent-color);
+    color: var(--text-on-accent);
+    padding: 1rem;
+    border: none;
+    border-radius: 50px;
+    font-weight: 700;
+    font-family: var(--font-heading);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    margin-top: 1rem;
+}
+
+.btn-submit:hover { transform: translateY(-2px); opacity: 0.9; }
+
+@media (max-width: 900px) {
+    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+
+
+/* ================= SEPARADOR PARALLAX ================= */
+.parallax-divider {
+    height: 30vh; /* Altura del banner */
+    width: 100%;
+    background-attachment: fixed; /* Esto crea el efecto de fondo fijo */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    transition: background-image 0.6s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Definimos las imágenes por tema */
+[data-theme="light"] .parallax-divider {
+    background-image: url('images/Abstracto-light.png');
+}
+
+[data-theme="dark"] .parallax-divider {
+    background-image: url('images/Abstracto-dark.png');
+}
+
+/* Un pequeño overlay sutil para mejorar el contraste si decides poner texto encima */
+.parallax-divider::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.05); /* Muy suave */
+}
     </style>
 </head>
 <body>
@@ -533,6 +686,25 @@
             </div>
         </section>
 
+        <section class="scroll-tape">
+            <div class="tape-container">
+                <span class="tape-item">Innovaction <span class="separator"></span></span>
+                <span class="tape-item">User Interface Design <span class="separator"></span></span>
+                <span class="tape-item">Branding <span class="separator"></span></span>
+                <span class="tape-item">Product Discovery Sprint <span class="separator"></span></span>
+                <span class="tape-item">Design Systems <span class="separator"></span></span>
+                <span class="tape-item">Digital Growth Strategy <span class="separator"></span></span>
+
+                <!-- Duplicado para efecto infinito continuo -->
+                <span class="tape-item">Innovaction <span class="separator"></span></span>
+                <span class="tape-item">User Interface Design <span class="separator"></span></span>
+                <span class="tape-item">Branding <span class="separator"></span></span>
+                <span class="tape-item">Product Discovery Sprint <span class="separator"></span></span>
+                <span class="tape-item">Design Systems <span class="separator"></span></span>
+                <span class="tape-item">Digital Growth Strategy <span class="separator"></span></span>
+            </div>
+        </section>
+<section class="parallax-divider"></section>
         <section class="services container">
             <div class="services-header gsap-reveal">
                 <h2>Nuestros <span class="text-accent">Servicios</span></h2>
@@ -614,6 +786,45 @@
                 </div>
             </div>
         </section>
+
+<section id="contacto" class="contact-section">
+    <div class="container contact-grid">
+        <div class="gsap-reveal">
+            <h2 style="font-size: 3rem; margin-bottom: 1.5rem;">¿Tienes un <span class="text-accent">desafío</span> para nosotros?</h2>
+            <p style="color: var(--text-muted); font-size: 1.2rem;">Cuéntanos de tu proyecto y agendemos una sesión de diagnóstico rápida.</p>
+        </div>
+
+      
+<form action="https://api.form-data.com/f/B69QcSLy7TRG4r" method="POST" class="contact-form gsap-reveal">
+    <input type="hidden" name="_fd" value="0" class="form-data-marker" />
+
+    <div class="form-group">
+        <label for="name">Nombre</label>
+        <input type="text" id="name" name="name" class="form-control" placeholder="Tu nombre" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" class="form-control" placeholder="hola@tuempresa.com" required>
+    </div>
+
+    <div class="form-group">
+        <label for="message">Mensaje</label>
+        <textarea id="message" name="message" class="form-control" rows="5" placeholder="Cuéntanos sobre tu proyecto..." required></textarea>
+    </div>
+
+    <button type="submit" class="btn-submit">Enviar mensaje</button>
+</form>
+
+<script>
+  _fd.scan();
+</script>
+
+
+    </div>
+</section>
+<section class="parallax-divider"></section>
+
     </main>
 
     <footer>
@@ -694,6 +905,9 @@
 
             // B. NEW: Alternar clase CSS para el deslizamiento del botón (Bento style)
             themeToggleBtn.classList.toggle('dark-active');
+
+            // --- NUEVA LÍNEA: Guardar la preferencia ---
+    localStorage.setItem('vertice-theme', newTheme);
 
             // C. Actualizamos todas las imágenes basadas en el nuevo tema y el tamaño actual
             const currentIsMobile = window.innerWidth <= mobileBreakpoint;
