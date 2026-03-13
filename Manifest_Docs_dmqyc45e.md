@@ -3,7 +3,7 @@
 **Versión:** V1<br>
 **Estado:** Work in Progress<br>
 **URL del Archivo:** [Figma file link](https://www.figma.com/design/AtH4juu1hgS0dgYM8ZdoKk/Verticelab)<br>
-**Última Actualización:** 03/12/2026<br>
+**Última Actualización:** 03/13/2026<br>
 
 ## 🔗 Recursos Externos
 | Recurso | URL |
@@ -35,6 +35,17 @@
 | 🗄 Archive | Cosas abandonadas o antiguas. |
 
 ## 📸 Registro de trabajo en progreso (WIP)
+
+**Snapshot name:** Concept Art-3 [Logo]<br>
+**Date:** 13/03/2026 07:25<br>
+**Note:** V2 + contacto + gracias page<br>
+**Project version:** V2<br>
+**Snapshot Id:** 2330379152355423600<br>
+**State Snapshot:** Work in Progress<br>
+**link to snapshot:** [Ir a la sección](https://www.figma.com/design/AtH4juu1hgS0dgYM8ZdoKk/Verticelab?node-id=20-3091)<br>
+**Version link snapshot:** [Version link Snapshot](https://www.figma.com/design/AtH4juu1hgS0dgYM8ZdoKk/Verticelab?version-id=2330379152355423600&node-id=20-3091)<br>
+**Figma Audit:** 0 Variables, 0 Componentes<br>
+***
 
 **Snapshot name:** Concept Art-3 [Logo]<br>
 **Date:** 12/03/2026 01:52<br>
