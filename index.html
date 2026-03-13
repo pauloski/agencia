@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script src="https://static.form-data.com/js/form-data-tools.v1.min.js"></script>
@@ -648,10 +648,71 @@
     height: 30%;
     background: rgba(0,0,0,0.05); /* Muy suave */
 }
+
+
+/* Botón del Nav: oculto por defecto en escritorio, visible por scroll */
+.nav-actions .btn-primary {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(20px);
+    transition: all 0.4s ease;
+}
+
+/* Clase que activaremos con GSAP */
+.nav-actions .btn-primary.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+/* Estilo para el botón dentro del Hero */
+.hero-cta {
+    display: inline-block;
+    margin-top: 1rem;
+}
+
+/* RESPONSIVE: En móvil, el del nav siempre oculto, el del hero siempre visible */
+@media (max-width: 768px) {
+    .nav-actions .btn-primary {
+        display: none !important; /* Desaparece del header en móvil */
+    }
+    .hero-cta {
+        display: inline-block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+}
+
+
+
+/* Reemplaza el estilo de tu splash-screen en el index.html */
+#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    /* Usamos el color gris claro exacto del proyecto Lottie */
+    background-color: #fff; 
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+#lottie-container {
+    /* Esto hará que el logo se sienta grande y centrado */
+    width: 100%; 
+    max-width: 800px; /* Tamaño máximo para no pixelar */
+    height: auto;
+}
     </style>
 </head>
 <body>
-
+<div id="splash-screen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--bg-color); z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 0.8s ease, visibility 0.8s;">
+    <div id="lottie-container" ></div>
+</div>
     <nav>
         <div class="logo">
             <img id="main-logo" src="images/logo-light.svg" alt="VérticeLab Logo" class="logo-img">
@@ -674,7 +735,7 @@
                 -->
                
             </div>
-            <a href="#contacto" class="btn-primary">Hablemos</a>
+           <a href="#contacto" id="nav-cta" class="btn-primary">Hablemos</a>
         </div>
     </nav>
 
@@ -682,12 +743,17 @@
         <section class="hero container">
             <h1 class="gsap-reveal">Aceleramos tu idea. Construimos tu <span class="text-accent">producto digital.</span></h1>
             <p class="gsap-reveal">Apoyamos a emprendedores y startups en incubadoras a validar rápido, diseñar interfaces escalables y definir estrategias de crecimiento reales.</p>
+                  <div class="gsap-reveal hero-cta">
+        <a href="#contacto" id="hero-cta" class="btn-primary">Hablemos</a>
+    </div>
         </section>
 
         <section class="value-prop">
             <div class="container">
                 <h2 class="gsap-reveal">Diseñado para sobrevivir al ecosistema de <span class="text-accent">emprendimiento.</span></h2>
                 <p class="gsap-reveal">Entendemos los tiempos de una incubadora y los recursos de una startup. No necesitas ir a Santiago para levantar capital; necesitas un socio local que transforme tu idea en un producto digital funcional, atractivo y rentable.</p>
+            
+      
             </div>
         </section>
 
@@ -942,6 +1008,71 @@
                 ease: "power3.out"
             });
         });
+        // Lógica para el intercambio de botones (Hero -> Nav)
+const heroCta = document.getElementById('hero-cta');
+const navCta = document.getElementById('nav-cta');
+
+// Solo ejecutamos esta lógica si no es móvil (detectando el ancho)
+if (window.innerWidth > 768) {
+    ScrollTrigger.create({
+        trigger: heroCta,
+        start: "top 10%", // Cuando el botón del hero casi llega arriba
+        onEnter: () => navCta.classList.add('is-visible'),
+        onLeaveBack: () => navCta.classList.remove('is-visible'),
+    });
+
+    // Animación de salida para el botón del Hero (desvanecimiento)
+    gsap.to(heroCta, {
+        scrollTrigger: {
+            trigger: heroCta,
+            start: "top 10%",
+            end: "bottom top",
+            scrub: true
+        },
+        opacity: 0,
+        scale: 0.8
+    });
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const splash = document.getElementById('splash-screen');
+    const hasVisited = sessionStorage.getItem('visited');
+
+    if (!hasVisited) {
+        // Inicializar Lottie
+        const animation = lottie.loadAnimation({
+            container: document.getElementById('lottie-container'),
+            renderer: 'svg',
+            loop: false,
+            autoplay: true,
+            path: 'Simple-Dot-remix.json' // Asegúrate de que el nombre coincida
+        });
+
+        // Cuando la animación termina (o después de un tiempo prudente)
+        animation.onComplete = () => {
+            splash.style.opacity = '0';
+            splash.style.visibility = 'hidden';
+            sessionStorage.setItem('visited', 'true');
+            
+            // Re-lanzar las animaciones de GSAP para que no ocurran detrás del splash
+            ScrollTrigger.refresh();
+        };
+
+        // Respaldo por si el JSON falla o es muy largo (3 segundos)
+        setTimeout(() => {
+            if (splash.style.visibility !== 'hidden') {
+                splash.style.opacity = '0';
+                splash.style.visibility = 'hidden';
+                sessionStorage.setItem('visited', 'true');
+            }
+        }, 3500);
+
+    } else {
+        // Si ya visitó en esta sesión, eliminamos el splash de inmediato
+        splash.style.display = 'none';
+    }
+});
     </script>
 </body>
 </html>
