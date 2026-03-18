@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VerticeLab | Laboratorio de Innovación</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Syne:wght@700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #0f0f0f;
+            --accent: #0052ff;
+            --text-muted: #666666;
+            --card-bg: #f8f8f8;
+            --border: #eeeeee;
+            --nav-bg: rgba(255, 255, 255, 0.9);
+        }
+
+        [data-theme="dark"] {
+            --bg: #0a0a0a;
+            --text: #ffffff;
+            --accent: #3d8bff;
+            --text-muted: #a0a0a0;
+            --card-bg: #111111;
+            --border: #222222;
+            --nav-bg: rgba(10, 10, 10, 0.9);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; transition: background 0.3s ease; }
+        
+        h1, h2, h3 { font-family: 'Syne', sans-serif; text-transform: uppercase; line-height: 0.9; }
+        .text-accent { color: var(--accent); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--accent); text-transform: uppercase; }
+
+        /* Nav */
+        nav { position: fixed; top: 0; width: 100%; z-index: 1000; background: var(--nav-bg); border-bottom: 1px solid var(--border); backdrop-filter: blur(10px); }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+        .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; text-decoration: none; color: var(--text); }
+
+        /* Hero */
+        .hero { padding: 160px 0 60px; }
+        .hero h1 { font-size: clamp(3rem, 7vw, 5.5rem); margin: 1.5rem 0; }
+        
+        /* Scrollers & Logos */
+        .scroller { overflow: hidden; padding: 1.5rem 0; background: var(--card-bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin: 2rem 0; }
+        .scroller-inner { display: flex; gap: 4rem; width: max-content; animation: scroll 40s linear infinite; }
+        .scroller-inner span { font-family: 'Syne', sans-serif; font-weight: 700; opacity: 0.3; text-transform: uppercase; white-space: nowrap; }
+
+        .logos-track { display: flex; gap: 5rem; animation: scroll 30s linear infinite; align-items: center; padding: 2rem 0; }
+        .logo-item { font-family: 'Syne'; font-size: 1.2rem; opacity: 0.4; font-weight: 800; filter: grayscale(1); white-space: nowrap; }
+
+        @keyframes scroll { to { transform: translateX(-50%); } }
+
+        /* Secciones de Contenido (Qué / Cómo) */
+        .section-padding { padding: 100px 0; }
+        .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 3rem; }
+        
+        /* Cómo lo hacemos: Steps */
+        .step-item { border-left: 2px solid var(--border); padding-left: 2rem; margin-bottom: 3rem; position: relative; }
+        .step-item::before { content: ""; position: absolute; left: -6px; top: 0; width: 10px; height: 10px; background: var(--accent); border-radius: 50%; }
+        .step-num { font-family: 'JetBrains Mono'; color: var(--accent); font-size: 0.9rem; margin-bottom: 0.5rem; display: block; }
+
+        /* Modelo Stingray (IA Card Grid) */
+        .stingray-box { background: var(--text); color: var(--bg); padding: 5rem; border-radius: 4px; margin: 4rem 0; }
+        .ia-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem; margin-top: 3rem; }
+        .ia-card { border: 1px solid #333; padding: 2rem; transition: 0.3s; }
+        .ia-card h4 { font-family: 'Syne'; margin-bottom: 1rem; color: var(--accent); }
+        .ia-card p { font-size: 0.9rem; color: #ccc; }
+
+        /* Bento Services Grid */
+        .grid-services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 4rem; }
+        .service-card { background: var(--card-bg); padding: 2.5rem; border: 1px solid var(--border); position: relative; }
+        .highlight { grid-column: span 2; border: 2px solid var(--accent); }
+        .badge { background: var(--accent); color: white; padding: 4px 12px; font-size: 0.7rem; font-family: 'JetBrains Mono'; position: absolute; top: 20px; right: 20px; }
+        .deliverables { list-style: none; margin-top: 1.5rem; }
+        .deliverables li { font-size: 0.9rem; margin-bottom: 0.5rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
+        .deliverables li::before { content: "—"; color: var(--accent); }
+
+        .bento-marketing-a, .bento-marketing-b { padding: 2.5rem; display: flex; align-items: center; background: var(--text); color: var(--bg); }
+        .bento-marketing-text { font-family: 'Syne'; font-size: 1.4rem; font-weight: 700; line-height: 1.2; }
+
+        /* Team */
+        .grid-team { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 4rem; }
+        .team-member img { width: 100%; max-width: 300px; filter: grayscale(1); margin-bottom: 1.5rem; }
+        .linkedin-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 1.5rem; text-decoration: none; color: var(--text); font-weight: 600; }
+        .linkedin-icon { width: 20px; fill: currentColor; }
+
+        /* Form */
+        .contact-section { padding: 100px 0; background: var(--card-bg); }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+        .contact-form { display: flex; flex-direction: column; gap: 1.5rem; }
+        .form-control { padding: 1rem; background: var(--bg); border: 1px solid var(--border); color: var(--text); outline: none; width: 100%; }
+        .btn-submit { padding: 1.2rem; background: var(--accent); color: white; border: none; font-family: 'Syne'; font-weight: 800; cursor: pointer; text-transform: uppercase; }
+
+        @media (max-width: 900px) {
+            .split-grid, .grid-services, .grid-team, .contact-grid { grid-template-columns: 1fr; }
+            .highlight { grid-column: span 1; }
+            .stingray-box { padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-content">
+            <a href="#" class="logo">VERTICELAB</a>
+            <button class="mono" id="themeSwitcher" style="background:none; border: 1px solid var(--border); padding: 5px 10px; cursor:pointer; color:var(--text);">Alternar Modo</button>
+        </div>
+    </nav>
+
+    <header class="hero container">
+        <span class="mono">Validación de Negocios</span>
+        <h1>Valida tu idea antes de <span class="text-accent">construirla.</span></h1>
+        <p>No somos una fábrica de software. Somos el laboratorio que reduce el riesgo de tu próxima gran inversión.</p>
+        <a href="#contacto" class="btn-submit" style="text-decoration:none; display:inline-block; padding: 1rem 2.5rem;">Agendar Sesión</a>
+    </header>
+
+    <div class="container">
+        <p class="mono" style="text-align: center; margin-bottom: 1rem; opacity: 0.6;">Ellos ya confían en nosotros</p>
+        <div style="overflow: hidden;">
+            <div class="logos-track">
+                <span class="logo-item">HUB INNOVACIÓN</span>
+                <span class="logo-item">STARTUP CHILE</span>
+                <span class="logo-item">CORFO LAB</span>
+                <span class="logo-item">ALPHA VENTURES</span>
+                <span class="logo-item">TECH PROMPT</span>
+                <span class="logo-item">NEXUS CORP</span>
+                <span class="logo-item">HUB INNOVACIÓN</span>
+                <span class="logo-item">STARTUP CHILE</span>
+                <span class="logo-item">CORFO LAB</span>
+                <span class="logo-item">ALPHA VENTURES</span>
+            </div>
+        </div>
+    </div>
+
+    <section class="section-padding container">
+        <div class="split-grid">
+            <div>
+                <span class="mono">Qué hacemos</span>
+                <h2 style="font-size: 3rem; margin-top: 1rem;">No diseñamos productos. <span class="text-accent">Diseñamos decisiones.</span></h2>
+            </div>
+            <div>
+                <p style="font-size: 1.1rem; color: var(--text-muted);">
+                    Nos enfocamos en la etapa más crítica de un proyecto: el inicio. Ayudamos a entender si una idea tiene mercado, validar problemas reales y ajustar propuestas de valor antes de que escribas una sola línea de código final. 
+                    <br><br>
+                    <strong>Tomamos decisiones basadas en evidencia, no en intuición.</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding container" style="border-top: 1px solid var(--border);">
+        <span class="mono">Cómo lo hacemos</span>
+        <h2 style="font-size: 3rem; margin-top: 1rem; margin-bottom: 4rem;">Un proceso para aprender rápido.</h2>
+        
+        <div class="split-grid">
+            <div class="step-item">
+                <span class="step-num">01. INMERSIÓN</span>
+                <h3>Entendemos tu idea</h3>
+                <p>Analizamos el contexto, la competencia y tus supuestos iniciales para definir el campo de batalla.</p>
+            </div>
+            <div class="step-item">
+                <span class="step-num">02. VALIDACIÓN</span>
+                <h3>Testeo con usuarios reales</h3>
+                <p>Salimos del edificio. Entrevistamos y observamos a quienes realmente usarán la solución.</p>
+            </div>
+            <div class="step-item">
+                <span class="step-num">03. ITERACIÓN</span>
+                <h3>Iteramos hasta encontrar tracción</h3>
+                <p>Ajustamos la propuesta de valor basándonos en los hallazgos. Fallar barato es parte del éxito.</p>
+            </div>
+            <div class="step-item">
+                <span class="step-num">04. DESPEGUE</span>
+                <h3>Estrategia de MVP</h3>
+                <p>Definimos el set mínimo de funcionalidades para lanzar un producto que el mercado realmente pida.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="stingray-box">
+            <span class="mono" style="color: var(--accent);">Diferencial Tecnológico</span>
+            <h2 style="font-size: 3.5rem; margin-top: 1rem;">Modelo <span class="text-accent">Stingray</span></h2>
+            <p style="margin-top: 1.5rem; opacity: 0.8; max-width: 600px;">Nuestro sistema de validación ágil potenciado por Inteligencia Artificial Estratégica.</p>
+            
+            <div class="ia-grid">
+                <div class="ia-card">
+                    <span class="material-symbols-outlined" style="margin-bottom: 1rem; color:var(--accent);">psychology</span>
+                    <h4>Análisis profundo</h4>
+                    <p>Por medio de la IA se comprende mejor el problema y sus posibles soluciones, evitando sesgos humanos.</p>
+                </div>
+                <div class="ia-card">
+                    <span class="material-symbols-outlined" style="margin-bottom: 1rem; color:var(--accent);">bolt</span>
+                    <h4>Experimentación ágil</h4>
+                    <p>Prueba ideas y soluciones con mayor rapidez y menos recursos, automatizando procesos de recolección.</p>
+                </div>
+                <div class="ia-card">
+                    <span class="material-symbols-outlined" style="margin-bottom: 1rem; color:var(--accent);">query_stats</span>
+                    <h4>Decisiones inteligentes</h4>
+                    <p>La IA te ayuda a tomar decisiones basadas en datos y análisis objetivos, minimizando la incertidumbre.</p>
+                </div>
+                <div class="ia-card">
+                    <span class="material-symbols-outlined" style="margin-bottom: 1rem; color:var(--accent);">lightbulb</span>
+                    <h4>Capacidad creativa</h4>
+                    <p>Nos permite explorar un volumen masivo de alternativas en menor tiempo para generar ideas disruptivas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services container section-padding">
+        <div class="services-header">
+            <h2>Nuestros <span class="text-accent">Servicios</span></h2>
+        </div>
+        
+        <div class="grid-services">
+            <div class="service-card highlight">
+                <span class="badge">El más elegido</span>
+                <h3>Product Discovery Sprint</h3>
+                <p>Transforma una idea difusa en una oportunidad clara. Antes de construir, entendemos. Antes de invertir, validamos.</p>
+                <ul class="deliverables">
+                    <li>Problema real definido</li>
+                    <li>Propuesta de valor validada</li>
+                    <li>Prototipo navegable para testeo</li>
+                    <li>Decisión informada sobre el MVP</li>
+                </ul>
+            </div>
+
+            <div class="bento-marketing-a">
+                <p class="bento-marketing-text">VérticeLab no es una fábrica de software. Somos tu laboratorio de innovación.</p>
+            </div>
+
+            <div class="service-card">
+               <h3>UX/UI & Design Systems</h3>
+               <p>Ordenamos lo que ya existe para mejorar adopción, claridad y escalabilidad del producto.</p> 
+               <ul class="deliverables">
+                    <li>Auditoría y rediseño UX</li>
+                    <li>Diseño de Interfaz moderna</li>
+                    <li>Prototipos interactivos</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <h3>Digital Branding</h3>
+                <p>Diseñamos identidades que reducen fricción y aumentan la comprensión de tu propuesta de valor.</p> 
+                <ul class="deliverables">
+                    <li>Identidad visual digital</li>
+                    <li>Guía de estilo UI</li>
+                    <li>Aplicación en producto</li>
+                </ul>
+            </div>
+
+            <div class="bento-marketing-b">
+                <p class="bento-marketing-text">"La incubadora te enseña a volar. Nosotros te construimos el cohete."</p>
+            </div>
+
+            <div class="service-card">
+                <h3>Digital Growth Strategy</h3>
+                <p>Estrategias estructuradas y basadas en datos para productos que ya están en el mercado.</p>
+                <ul class="deliverables">
+                    <li>Diseño de Funnel de conversión</li>
+                    <li>Plan de contenidos</li>
+                    <li>Configuración analítica</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="team container section-padding">
+        <h2>El <span class="text-accent">equipo</span> detrás del código</h2>
+        <div class="grid-team">
+            <div class="team-member">
+                <img src="images/karen.png" alt="Karen Bravo" onerror="this.src='https://via.placeholder.com/300x400?text=Karen+Bravo'">
+                <h3>Karen Bravo</h3>
+                <span>Estrategia & Growth</span>
+                <p>Ingeniera en Marketing y MBA. Especialista en marketing estratégico y desarrollo de ecosistemas de innovación.</p>
+                <a href="https://www.linkedin.com/in/karen-bravo/" target="_blank" class="linkedin-link">
+                    <svg class="linkedin-icon" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg> LinkedIn
+                </a>
+            </div>
+            <div class="team-member">
+                <img src="images/paulo.png" alt="Paulo Correa" onerror="this.src='https://via.placeholder.com/300x400?text=Paulo+Correa'">
+                <h3>Paulo Correa</h3>
+                <span>Lead UX/UI & Diseño Estratégico</span>
+                <p>Especialista en sistemas de diseño. Transforma requerimientos complejos en experiencias minimalistas.</p>
+                <a href="https://www.linkedin.com/in/paulo-correa" target="_blank" class="linkedin-link">
+                    <svg class="linkedin-icon" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg> LinkedIn
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="contact-section">
+        <div class="container contact-grid">
+            <div>
+                <h2 style="font-size: 3.5rem; margin-bottom: 1.5rem;">¿Tienes un <span class="text-accent">desafío</span>?</h2>
+                <p style="color: var(--text-muted); font-size: 1.2rem;">Agendemos una sesión de diagnóstico rápida.</p>
+            </div>
+            <form action="https://api.form-data.com/f/B69QcSLy7TRG4r" method="POST" class="contact-form">
+                <input type="hidden" name="_fd" value="0" class="form-data-marker" />
+                <div class="form-group">
+                    <input type="text" name="name" class="form-control" placeholder="Nombre" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" class="form-control" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <textarea name="message" class="form-control" rows="5" placeholder="Mensaje..." required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Enviar mensaje</button>
+            </form>
+        </div>
+    </section>
+
+    <footer style="padding: 3rem 0; text-align: center; border-top: 1px solid var(--border);">
+        <p class="mono">VerticeLab 2026 — Menos suposiciones, más evidencia.</p>
+    </footer>
+
+    <script>
+        const themeSwitcher = document.getElementById('themeSwitcher');
+        const html = document.documentElement;
+        themeSwitcher.addEventListener('click', () => {
+            const current = html.getAttribute('data-theme');
+            html.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
+        });
+    </script>
+</body>
+</html>

@@ -13,6 +13,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -31,9 +33,18 @@
             --nav-bg: rgba(255, 255, 255, 0.85);
             --stroke-path: #171717;
             
-            --font-heading: 'Syne', sans-serif;
+          --font-heading: 'Clash Display', sans-serif;
             --font-body: 'Inter', sans-serif;
             --transition-fast: 0.3s ease;
+
+            /* Nuevos colores específicos de la infografía original */
+        --color-ai-led: #dbeafe; /* Azul muy pálido */
+        --color-human-led: #1e3a8a; /* Azul oscuro */
+        /* Degradados intermedios aproximados */
+        --color-layer-2: #bfdbfe;
+        --color-layer-3: #93c5fd;
+        --color-layer-4: #60a5fa;
+        --color-layer-5: #3b82f6;
         }
 
         /* ================= VARIABLES MODO OSCURO ================= */
@@ -317,29 +328,156 @@
 
         .btn-primary:hover { transform: scale(1.05); opacity: 0.9; }
 
-        /* ================= HERO SECTION ================= */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding-top: 150px;
-            padding-bottom: 4rem;
-        }
+        /* ================= HERO SECTION (MEJORADO) ================= */
+     /* ================= HERO SECTION (REDISEÑO INMERSIVO VIDEO WALL) ================= */
+/* ================= HERO SECTION (LAYOUT OPTIMIZADO) ================= */
+/* ================= HERO SECTION (VERSION FINAL OPTIMIZADA) ================= */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 80px;
+    position: relative;
+    overflow: hidden; /* Enmascara el desborde del video wall */
+}
 
-        .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 5.5rem);
-            max-width: 900px;
-            margin-bottom: 1.5rem;
-            letter-spacing: -2px;
-        }
+/* Textura de fondo sutil */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+    background-size: 30px 30px;
+    opacity: 0.3;
+    z-index: -1;
+}
 
-        .hero p {
-            font-size: 1.25rem;
-            max-width: 650px;
-            color: var(--text-muted);
-            margin-bottom: 3rem;
-        }
+.hero-grid {
+    display: grid;
+    /* Equilibrio: 75% para texto, 25% reservado para entrada de video */
+    grid-template-columns: 1.5fr 0.5fr; 
+    gap: 0; 
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-text-content {
+    max-width: none; /* Permite que el grid controle el ancho */
+    z-index: 5;
+    padding-right: 8%; /* Espacio de seguridad para legibilidad */
+}
+
+.hero h1 {
+    font-size: clamp(3.5rem, 7.5vw, 5.5rem);
+    line-height: 0.95;
+    margin-bottom: 2rem;
+    letter-spacing: -4px;
+    /* Forzamos quiebre de línea para que el título se distribuya mejor */
+    max-width: 14ch; 
+}
+
+.hero p {
+    font-size: 1.35rem;
+    max-width: 600px;
+    color: var(--text-muted);
+    margin-bottom: 3.5rem;
+}
+
+/* CONTENEDOR DE VIDEO (VIDEO WALL INMERSIVO) */
+.hero-image-container {
+    position: relative;
+    height: 90vh;
+    width: 65vw; /* Se expande hacia la derecha */
+    margin-right: -20vw; /* Empuja el video al borde de la pantalla */
+    margin-left: auto;
+    background: transparent;
+    padding: 0;
+    overflow: hidden; 
+    transition: var(--transition-fast);
+}
+
+.hero-image-container:hover {
+    transform: translateX(-10px); /* Micro-interacción de profundidad */
+}
+
+/* EL VIDEO: Puro color y sin filtros */
+.hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: none !important;
+    display: block;
+    /* Máscara: El video empieza a ser visible después de las letras (25%) */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 25%, black 90%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 25%, black 90%, transparent 100%);
+}
+
+/* Badge decorativo sobre el video */
+.hero-bento-badge {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    background: var(--accent-color);
+    color: var(--text-on-accent);
+    padding: 0.6rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    backdrop-filter: blur(5px);
+    z-index: 10;
+}
+
+/* ================= RESPONSIVO (MOBILE & TABLET) ================= */
+@media (max-width: 992px) {
+    .hero {
+        padding-top: 120px;
+        height: auto;
+    }
+
+    .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 4rem;
+    }
+
+    .hero-text-content {
+        padding-right: 0;
+    }
+
+    .hero h1 { 
+        margin-left: auto; 
+        margin-right: auto; 
+        max-width: 100%;
+        letter-spacing: -2px;
+    }
+
+    .hero p { 
+        margin-left: auto; 
+        margin-right: auto; 
+    }
+    
+    .hero-image-container {
+        width: 100%;
+        height: 50vh;
+        margin-right: 0;
+        border-radius: 24px;
+        /* Quitamos máscaras en móvil para ver el video completo */
+        -webkit-mask-image: none;
+        mask-image: none;
+    }
+
+    .hero-bento-badge { 
+        left: 50%; 
+        transform: translateX(-50%); 
+        bottom: 20px;
+    }
+}
 
         /* ================= VALUE PROP ================= */
         .value-prop {
@@ -367,23 +505,22 @@
         .services-header h2 { font-size: 3rem; }
 
         /* ================= DIAGRAMACIÓN BENTO (NUEVO) ================= */
-        .grid-services {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 columnas explícitas para Bento */
-            gap: 2rem;
-        }
+      .grid-services {
+    display: grid;
+    /* Define exactamente 2 columnas de igual ancho */
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 2rem; /* Espacio entre las tarjetas */
+    margin-top: 4rem;
+}
 
-        .service-card {
-            background: var(--card-bg);
-            padding: 3rem 2rem;
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
-            transition: var(--transition-fast);
-            cursor: pointer;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
+.service-card {
+    background: var(--card-bg);
+    padding: 2.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+}
 
         .service-card:hover {
             border-color: var(--accent-color);
@@ -485,10 +622,13 @@
         }
 
         /* ================= MEDIA QUERIES (BENTO RESPONSIVE) (NUEVO) ================= */
+
+
+
         @media (max-width: 900px) { /* Breakpoint para el Bento flow */
             .grid-services {
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            }
+        grid-template-columns: 1fr;
+    }
             .service-card, .bento-marketing-a, .bento-marketing-b {
                 grid-column: span 1 !important; /* Desactivar spans en mobile */
             }
@@ -707,6 +847,433 @@
     max-width: 800px; /* Tamaño máximo para no pixelar */
     height: auto;
 }
+
+/* ================= LOGO CAROUSEL (CONFÍAN EN NOSOTROS) ================= */
+    .logos-section {
+        padding: 4rem 0;
+        background: var(--bg-color);
+        border-bottom: 1px solid var(--border-color);
+        overflow: hidden;
+    }
+
+    .logos-title {
+        text-align: center;
+        font-family: var(--font-heading);
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--text-muted);
+        margin-bottom: 3rem;
+    }
+
+    .logos-slider {
+        display: flex;
+        width: calc(250px * 10); /* Ajustar según cantidad de logos */
+        animation: logoScroll 30s linear infinite;
+    }
+
+    .logos-slider:hover { animation-play-state: paused; }
+
+    .logo-slide {
+        width: 250px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 40px;
+    }
+
+    .logo-slide img {
+        max-width: 140px;
+        filter: grayscale(100%);
+        opacity: 0.6;
+        transition: var(--transition-fast);
+    }
+
+    .logo-slide img:hover {
+        filter: grayscale(0%);
+        opacity: 1;
+    }
+
+    @keyframes logoScroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(calc(-250px * 5)); } /* La mitad de los logos */
+    }
+
+    /* ================= LINKEDIN ICON STYLE ================= */
+    .linkedin-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        color: var(--accent-color);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: var(--transition-fast);
+    }
+
+    .linkedin-link:hover { opacity: 0.7; transform: translateX(5px); }
+
+    .linkedin-icon {
+        width: 20px;
+        height: 20px;
+        fill: currentColor;
+    }
+
+
+/* ================= QUÉ HACEMOS & CÓMO LO HACEMOS ================= */
+.process-section { padding: 8rem 0; background: var(--bg-color); }
+
+.process-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 4rem;
+}
+
+.step-card {
+    padding: 2rem;
+    border-left: 2px solid var(--border-color);
+    position: relative;
+    transition: var(--transition-fast);
+}
+
+.step-card:hover { border-left-color: var(--accent-color); background: var(--card-bg); border-radius: 0 16px 16px 0; }
+
+.step-number {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--accent-color);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+/* ================= MODELO STINGRAY (ACTUALIZADO: FULL WIDTH) ================= */
+
+/* 1. Envoltorio Externo: Este da el fondo al 100% del ancho */
+.stingray-full-wrapper {
+    width: 100vw; /* 100% del ancho de la ventana */
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background: var(--card-bg); /* Fondo sutil para dar textura */
+    padding: 8rem 0; /* Espaciado superior e inferior */
+    margin-top: 6rem;
+    margin-bottom: 6rem;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+/* Opcional: Para dar la sensación Bento de la imagen, podemos redondear las esquinas */
+@media (min-width: 1300px) {
+    .stingray-full-wrapper {
+        border-radius: 40px;
+        width: 100%;
+        left: auto;
+        right: auto;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* 2. Cabecera alineada */
+.stingray-header {
+    text-align: center;
+    margin-bottom: 5rem;
+}
+
+/* 3. Grid de Tarjetas (se mantiene similar, pero dentro del nuevo contenedor) */
+.stingray-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2.5rem;
+    padding: 5%;
+}
+
+/* 4. Tarjetas Individuales: Ajustes para que destaquen sobre el fondo */
+.stingray-card {
+    background: var(--bg-color); /* Fondo de la tarjeta (blanco en claro) */
+    padding: 3rem 2.5rem;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stingray-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--accent-color);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+}
+
+/* Iconos y Textos de tarjeta */
+.stingray-icon {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 2rem;
+    fill: var(--accent-color); /* Color dinámico celeste/azul */
+}
+
+.stingray-card h4 {
+    margin-bottom: 1.25rem;
+    font-size: 1.25rem;
+    color: var(--text-color);
+}
+
+.stingray-card p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0;
+}
+
+@media (max-width: 900px) {
+    .process-grid { grid-template-columns: 1fr; }
+}
+
+
+
+
+.stingray-infographic-container {
+        width: 100%;
+        max-width: 1100px;
+        margin: 4rem auto;
+        padding: 2rem;
+        position: relative;
+    }
+/* Ocultar la infografía en pantallas menores a 768px */
+@media (max-width: 768px) {
+    .stingray-infographic-container {
+        display: none !important;
+    }
+}
+    .infographic-main-axis {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        height: 400px; /* Altura generosa para el diamante */
+        position: relative;
+        margin-bottom: 2rem;
+    }
+
+    /* Estilos globales para los textos dentro de las formas */
+    .shape-text {
+        font-family: var(--font-body);
+        font-size: 0.75rem;
+        font-weight: 500;
+        line-height: 1.3;
+        text-align: center;
+        position: absolute;
+        z-index: 12;
+        pointer-events: none; /* Que el hover sea en la forma, no en el texto */
+    }
+
+    /* --- FASE 1: ENTRENAR (Diamante Humano) --- */
+    .stage-train {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    .shape-diamond-human {
+        width: 170px;
+        height: 170px;
+        background-color: var(--color-human-led);
+        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    }
+
+    .text-train {
+        color: white;
+        width: 100px;
+    }
+
+    /* Línea divisoria de puntos original */
+    .divider-dotted {
+        height: 350px;
+        border-left: 1px dotted var(--text-muted);
+        margin: 0 1.5rem;
+        opacity: 0.5;
+    }
+
+    /* --- FASE 2: DESARROLLAR (Medio Diamante AI) --- */
+    .stage-develop {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    .shape-half-diamond-ai {
+        width: 180px;
+        height: 350px;
+        background-color: var(--color-ai-led);
+        /* Triángulo que abre hacia la derecha */
+        clip-path: polygon(0% 50%, 100% 0%, 100% 100%);
+        position:relative;
+            top: -3px;
+    }
+
+    .text-develop {
+        color: var(--color-human-led);
+        width: 140px;
+        left: 20px;
+    }
+
+    /* --- FASE 3: ITERAR (Capas de cebolla expansivas) --- */
+    .stage-iterate-layers {
+        flex-grow: 1;
+        height: 350px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .iterate-layer {
+        position: absolute;
+        height: 100%;
+        left: 0;
+        /* Forma de trapecio expansivo */
+        clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
+        transition: width 0.4s ease, background-color 0.3s ease;
+        cursor: pointer;
+    }
+
+    /* Degradados de capas coincidentes con la original */
+    .layer-ai-base { background-color: var(--color-ai-led); z-index: 11; width: 15%; }
+    .layer-2 { background-color: var(--color-layer-2); z-index: 10; width: 30%; }
+    .layer-3 { background-color: var(--color-layer-3); z-index: 9; width: 45%; }
+    .layer-4 { background-color: var(--color-layer-4); z-index: 8; width: 60%; }
+    .layer-5 { background-color: var(--color-layer-5); z-index: 7; width: 75%; }
+    .layer-human-final { background-color: var(--color-human-led); z-index: 6; width: 90%; }
+
+    .text-iterate {
+        color: var(--color-human-led);
+        width: 200px;
+        left: 20px;
+        text-align: left;
+    }
+
+    /* Punto final de validación */
+    .validation-endpoint {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background-color: var(--bg-color);
+        border: 3px solid var(--color-human-led);
+        position: absolute;
+        right: 8%; /* Ajustado para quedar en la punta de la última capa */
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+        box-shadow: 0 0 15px rgba(30, 58, 138, 0.3);
+    }
+
+    /* --- ETIQUETAS INFERIORES (Tipografía Serif Original) --- */
+    .labels-axis {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding-left: 2rem;
+        margin-top: -1rem;
+    }
+
+    .axis-label {
+        font-family: 'Syne', serif; /* Usando Syne para ese toque serif/display */
+        font-size: 1.8rem;
+        font-weight: 500;
+        color: var(--text-color);
+        text-transform: none; /* Importante: No Uppercase en las etiquetas bajas */
+        margin-right: 6rem; /* Espaciado manual para alinear con las formas */
+    }
+
+    /* --- LEYENDA (AI-led / Human-led) --- */
+    .infographic-legend {
+        display: flex;
+        gap: 2rem;
+        justify-content: flex-end;
+        margin-bottom: 2rem;
+        font-family: var(--font-body);
+        font-size: 0.8rem;
+        color: var(--text-muted);
+    }
+
+    .legend-item { display: flex; align-items: center; gap: 0.5rem; }
+    .legend-color { width: 30px; height: 15px; border-radius: 2px; }
+
+    /* --- RESPONSIVE ADJUSTMENTS --- */
+    @media (max-width: 900px) {
+        .infographic-main-axis { flex-direction: column; height: auto; gap: 2rem; }
+        .divider-dotted { display: none; }
+        .shape-half-diamond-ai { width: 300px; height: 150px; clip-path: polygon(50% 0%, 100% 100%, 0% 100%); }
+        .text-develop { left: 50%; transform: translateX(-50%); top: 20px; }
+        .stage-iterate-layers { width: 100%; height: 200px; }
+        .axis-label { font-size: 1.4rem; margin-right: 2rem; }
+    }
+
+
+
+
+.consultancy-intro {
+        padding: 4rem 0 8rem 0;
+    }
+
+  /* Busca y reemplaza tu clase .consultancy-badge por esta */
+
+
+/* Opcional: Si prefieres que sea solo texto sin fondo, usa esta versión: */
+
+.consultancy-badge {
+    color: var(--accent-color); 
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+
+    .consultancy-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 4rem;
+        align-items: center;
+    }
+
+    .consultancy-statement {
+        font-size: clamp(1.5rem, 3vw, 2.5rem);
+        line-height: 1.1;
+        font-family: var(--font-heading);
+        font-weight: 700;
+    }
+
+    @media (max-width: 900px) {
+        .consultancy-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    .hero-image-container video.hero-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover; /* Asegura que rellene bien el contenedor bento */
+    background-color: transparent;
+    position: relative;
+    right: 20%;
+}
     </style>
 </head>
 <body>
@@ -730,32 +1297,242 @@
                         <span class="thumb"></span>
                     </span>
                 </button>
-            <!--
-                 <span class="btn-theme-text">Modo</span>
-                -->
-               
             </div>
            <a href="#contacto" id="nav-cta" class="btn-primary">Hablemos</a>
         </div>
     </nav>
 
     <main>
-        <section class="hero container">
-            <h1 class="gsap-reveal">Aceleramos tu idea. Construimos tu <span class="text-accent">producto digital.</span></h1>
-            <p class="gsap-reveal">Apoyamos a emprendedores y startups en incubadoras a validar rápido, diseñar interfaces escalables y definir estrategias de crecimiento reales.</p>
-                  <div class="gsap-reveal hero-cta">
-        <a href="#contacto" id="hero-cta" class="btn-primary">Hablemos</a>
-    </div>
-        </section>
+  <section class="hero" id="hero-section">
+        <div class="container hero-grid">
+            <div class="hero-text-content">
+                <span class="consultancy-badge gsap-reveal">Consultoría de Innovación & Diseño</span>
+                
+                <h1 class="gsap-reveal">
+                    Aceleramos<span class="text-accent"> tus ideas</span> 
+                </h1>
+                <p class="gsap-reveal">
+                    Somos una consultora especializada en reducir la incertidumbre de nuevos negocios a través del diseño estratégico.
 
+
+
+
+
+                </p>
+                <div class="gsap-reveal hero-cta">
+                    <a href="#contacto" id="hero-cta" class="btn-primary">Hablemos</a>
+                </div>
+            </div>
+
+             <div class="gsap-reveal hero-image-container">
+    <video id="hero-video-player" playsinline autoplay muted loop class="hero-img">
+        <source id="video-source" src="images/hero_video.mp4" type="video/mp4">
+        Tu navegador no soporta videos.
+    </video>
+</div>
+        </div>
+    </section>
+
+
+        <section class="logos-section">
+    <div class="logos-title gsap-reveal">Confían en nosotros</div>
+    <div class="logos-slider">
+        <div class="logo-slide"><img src="images/foodware.svg" alt="foodware"></div>
+        <div class="logo-slide"><img src="images/aulatec.svg" alt="aulatec"></div>
+        <div class="logo-slide"><img src="images/h2v.svg" alt="h2v"></div>
+        <div class="logo-slide"><img src="images/chrysalis.png" alt="chrysalis"></div>
+        <div class="logo-slide"><img src="images/foodware.svg" alt="foodware"></div>
+        <div class="logo-slide"><img src="images/aulatec.svg" alt="aulatec"></div>
+        <div class="logo-slide"><img src="images/h2v.svg" alt="h2v"></div>
+        <div class="logo-slide"><img src="images/chrysalis.png" alt="chrysalis"></div>
+    </div>
+</section>
+
+
+
+  <section class="consultancy-section container" style="padding: 8rem 0;">
+    
+    <div class="consultancy-grid gsap-reveal" style="margin-bottom: 8rem;">
+        <div class="intro-text">
+            <p class="consultancy-badge">Quiénes Somos</p>
+            <h2 class="consultancy-statement" style="font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 2rem;">
+                Tu socio estratégico en <span class="text-accent">innovación.</span>
+            </h2>
+            <p style="font-size: 1.2rem; color: var(--text-muted); max-width: 600px;">
+             Nos especializamos en crear nuevos negocios, evaluar y mejorar servicios existentes y desarrollar productos digitales de alta calidad. A través del diseño estratégico, aplicando metodologías ágiles y diseño centrado en el usuario para asegurar el encaje mercado-producto. Te asesoramos en la optimización de tus productos digitales y en el diseño de experiencias inmersivas que generen valor para tu marca
+
+            </p>
+        </div>
+        
+        <div class="intro-visual" style="position: relative; background: var(--card-bg); border-radius: 30px; height: 400px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-color); overflow: hidden;">
+            <img src="images/agencia.png" alt="VérticeLab Team" style="width: 100%; height: 100%; object-fit: cover; filter: grayscale(1);">
+            <div style="position: absolute; bottom: 20px; right: 20px; background: var(--accent-color); color: white; padding: 1rem; border-radius: 15px; font-weight: 700; font-family: var(--font-heading); font-size: 0.8rem;">
+                ETAPA IDEA → MVP
+            </div>
+        </div>
+    </div>
+
+    <div class="enfoque-wrapper gsap-reveal">
+        <div style="text-align: center; margin-bottom: 4rem;">
+            <p class="consultancy-badge" style="margin: 0 auto;">Nuestro Enfoque</p>
+            <h2 style="font-size: 3rem; margin-top: 1rem;">Transformamos <span class="text-accent">datos en decisiones.</span></h2>
+        </div>
+
+        <div class="enfoque-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+            
+            <div class="enfoque-card" style="padding: 2.5rem; background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border-color); transition: var(--transition-fast);">
+                <span class="material-symbols-outlined" style="font-size: 40px; color: var(--accent-color); margin-bottom: 1.5rem;">insights</span>
+                <h4 style="margin-bottom: 1rem;">Insights Accionables</h4>
+                <p style="font-size: 0.95rem; color: var(--text-muted);">Conclusiones claras y estratégicas diseñadas para tus grupos de interés y stakeholders.</p>
+            </div>
+
+            <div class="enfoque-card" style="padding: 2.5rem; background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border-color); transition: var(--transition-fast);">
+                <span class="material-symbols-outlined" style="font-size: 40px; color: var(--accent-color); margin-bottom: 1.5rem;">architecture</span>
+                <h4 style="margin-bottom: 1rem;">Herramientas Aplicables</h4>
+                <p style="font-size: 0.95rem; color: var(--text-muted);">Journey Maps, Arquetipos de Personas y matrices comparativas para visualizar la oportunidad.</p>
+            </div>
+
+            <div class="enfoque-card" style="padding: 2.5rem; background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border-color); transition: var(--transition-fast);">
+                <span class="material-symbols-outlined" style="font-size: 40px; color: var(--accent-color); margin-bottom: 1.5rem;">help_center</span>
+                <h4 style="margin-bottom: 1rem;">Preguntas Estratégicas</h4>
+                <p style="font-size: 0.95rem; color: var(--text-muted);">Metodologías <em>"¿Cómo podríamos...?"</em> para detonar innovación y priorización efectiva.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    .enfoque-card:hover {
+        border-color: var(--accent-color) !important;
+        transform: translateY(-10px);
+        background: var(--bg-color) !important;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    }
+</style>
+
+
+    <section class="stingray-full-wrapper gsap-reveal">
+    <div class="stingray-content">
+        
+        <div class="stingray-header">
+            <span class="badge consultancy-badge" style="position: static; display: inline-block;">Cómo lo hacemos</span>
+            <h2 style="font-size: 2.8rem; margin-bottom: 1rem; color: var(--text-color);">
+                Modelo <span class="text-accent">Stingray</span>
+            </h2>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">
+                Nuestro sistema de validación ágil potenciado por Inteligencia Artificial Estratégica.
+            </p>
+        </div>
+
+<div class="stingray-infographic-container gsap-reveal">
+    
+    <div class="infographic-legend">
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: var(--color-ai-led);"></div>
+            <span>Liderado por IA</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: var(--color-human-led);"></div>
+            <span>Liderado por Humanos</span>
+        </div>
+    </div>
+
+    <div class="infographic-main-axis">
+        
+        <div class="stage-train info-stage" data-tooltip="Generamos hipótesis basadas en datos de mercado y tendencias tecnológicas.">
+            <div class="shape-diamond-human"></div>
+            <div class="shape-text text-train">Entrenar + generar hipótesis</div>
+        </div>
+
+        <div class="divider-dotted"></div>
+
+        <div class="stage-develop info-stage" data-tooltip="Desarrollo exponencial de conceptos mediante herramientas de IA avanzada.">
+            <div class="shape-half-diamond-ai"></div>
+            <div class="shape-text text-develop">Desarrollo exponencial de conceptos</div>
+        </div>
+
+        <div class="stage-iterate-layers info-stage" data-tooltip="Validación constante con usuarios reales y pruebas sintéticas para asegurar deseabilidad y viabilidad.">
+            <div class="iterate-layer layer-ai-base"></div>
+            <div class="iterate-layer layer-2"></div>
+            <div class="iterate-layer layer-3"></div>
+            <div class="iterate-layer layer-4"></div>
+            <div class="iterate-layer layer-5"></div>
+            <div class="iterate-layer layer-human-final"></div>
+            
+            <div class="shape-text text-iterate">
+                Validación iterativa utilizando pruebas humanas y sintéticas, con curación humana en cada paso.
+            </div>
+
+            <div class="validation-endpoint"></div>
+        </div>
+
+        <div style="position: absolute; right: 0; top: 50%; transform: translateY(-50%) translateX(110%); width: 150px; font-family: var(--font-body); font-size: 0.7rem; color: var(--text-muted); text-align: left;">
+            Conceptos validados para deseabilidad, viabilidad y factibilidad. ●
+        </div>
+
+    </div>
+
+    <div class="labels-axis">
+        <div class="axis-label" style="margin-left: 0.5rem;">Entrenar</div>
+        <div class="axis-label" style="margin-left: 1.5rem;">Desarrollar</div>
+        <div class="axis-label" style="margin-left: 2rem;">Iterar</div>
+    </div>
+    
+</div>
+
+        <div class="stingray-grid">
+
+            <div class="stingray-card">
+                <svg class="stingray-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                <h4>Análisis profundo</h4>
+                <p>IA para comprender problemas y evitar sesgos humanos.</p>
+            </div>
+
+
+
+
+
+            <div class="stingray-card">
+                <svg class="stingray-icon" viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+                <h4>Experimentación ágil</h4>
+                <p>Prueba ideas con rapidez automatizando la recolección de datos.</p>
+            </div>
+            <div class="stingray-card">
+                <svg class="stingray-icon" viewBox="0 0 24 24"><path d="M10 20h4V4h-4v16zm-6 0h4v-8H4v8zM16 9v11h4V9h-4z"/></svg>
+                <h4>Decisiones inteligentes</h4>
+                <p>Análisis objetivos de datos para minimizar la incertidumbre.</p>
+            </div>
+            <div class="stingray-card">
+                <svg class="stingray-icon" viewBox="0 0 24 24"><path d="M12 2C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
+                <h4>Capacidad creativa</h4>
+                <p>Exploración masiva de alternativas disruptivas en tiempo récord.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</section>
         <section class="value-prop">
             <div class="container">
-                <h2 class="gsap-reveal">Diseñado para sobrevivir al ecosistema de <span class="text-accent">emprendimiento.</span></h2>
-                <p class="gsap-reveal">Entendemos los tiempos de una incubadora y los recursos de una startup. No necesitas ir a Santiago para levantar capital; necesitas un socio local que transforme tu idea en un producto digital funcional, atractivo y rentable.</p>
-            
+               <h2 class="gsap-reveal">
+No necesitas más desarrollo. Necesitas <span class="text-accent">claridad.</span>
+</h2>
+
+<p class="gsap-reveal">
+El mayor riesgo en etapas tempranas no es técnico, es estratégico. 
+Ideas mal enfocadas, problemas mal definidos y decisiones apresuradas.
+
+Trabajamos contigo para entender qué construir, por qué y para quién.
+Porque antes de escalar, hay que validar.
+</p>
       
             </div>
         </section>
+
+   <section class="container process-section">
+
 
         <section class="scroll-tape">
             <div class="tape-container">
@@ -766,7 +1543,6 @@
                 <span class="tape-item">Design Systems <span class="separator"></span></span>
                 <span class="tape-item">Digital Growth Strategy <span class="separator"></span></span>
 
-                <!-- Duplicado para efecto infinito continuo -->
                 <span class="tape-item">Innovaction <span class="separator"></span></span>
                 <span class="tape-item">User Interface Design <span class="separator"></span></span>
                 <span class="tape-item">Branding <span class="separator"></span></span>
@@ -776,86 +1552,113 @@
             </div>
         </section>
 <section class="parallax-divider"></section>
-        <section class="services container">
-            <div class="services-header gsap-reveal">
-                <h2>Nuestros <span class="text-accent">Servicios</span></h2>
-                <p style="color: var(--text-muted); margin-top: 1rem; font-size: 1.2rem;">Empaquetados para darte exactamente lo que necesitas en cada etapa.</p>
+
+
+
+
+<section class="services container">
+    <div class="services-header gsap-reveal">
+        <span class="consultancy-badge">Capacidades</span>
+        <h2>Nuestros <span class="text-accent">Servicios</span></h2>
+        <p style="color: var(--text-muted); margin-top: 1rem; font-size: 1.2rem; max-width: 600px;">
+            Soluciones estratégicas diseñadas para darte claridad y escalabilidad en cada etapa del ciclo de innovación.
+        </p>
+    </div>
+    
+    <div class="grid-services">
+        <div class="service-card highlight gsap-reveal">
+            <span class="badge">El más elegido</span>
+            <h3>Product Discovery Sprint</h3>
+            <p>Para emprendedores que quieren crear desde cero. Validamos tu idea en tiempo récord antes de escribir una sola línea de código.</p>
+            <ul class="deliverables">
+                <li>Problema definido y validado (no supuesto)</li>
+                <li>Propuesta de valor clara y testeada</li>
+                <li>Prototipo navegable de alta fidelidad</li>
+                <li>Roadmap estratégico para el desarrollo del MVP</li>
+            </ul>
+        </div>
+
+        <div class="service-card gsap-reveal">
+            <h3>UX/UI & Design Systems</h3>
+            <p>Cuando el problema no es construir más, sino ordenar lo que ya existe. Rediseñamos para mejorar adopción, claridad y escalabilidad.</p>
+            <ul class="deliverables">
+                <li>Auditoría y rediseño UX profundo</li>
+                <li>Diseño de Interfaz (UI) moderna y funcional</li>
+                <li>Prototipos interactivos para testeo</li>
+                <li>Sistemas de diseño escalables</li>
+            </ul>
+        </div>
+
+        <div class="service-card gsap-reveal">
+            <h3>Digital Branding</h3>
+            <p>Las marcas digitales no se comportan como las tradicionales. Creamos identidades visuales pensadas nativamente para pantallas y apps.</p>
+            <ul class="deliverables">
+                <li>Identidad visual digital</li>
+                <li>Guía de estilo UI</li>
+                <li>Aplicación en producto</li>
+            </ul>
+        </div>
+
+        <div class="service-card gsap-reveal">
+            <h3>Digital Growth Strategy</h3>
+            <p>Para productos digitales que ya están en el mercado y necesitan crecer de forma estructurada, predecible y basada en datos.</p>
+            <ul class="deliverables">
+                <li>Estrategia digital integral</li>
+                <li>Diseño de Funnel de conversión</li>
+                <li>Plan de contenidos</li>
+                <li>Configuración analítica</li>
+            </ul>
+        </div>
+
+        <div class="service-card gsap-reveal" style="grid-column: 1 / -1;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; align-items: start;">
+                <div>
+                    <h3>Consultoría & Design Ops</h3>
+                    <p>No solo diseñamos pantallas, diseñamos decisiones. Optimizamos la relación entre personas, procesos y herramientas para asegurar eficiencia.</p>
+                </div>
+                <ul class="deliverables">
+                    <li><strong>Research & Usabilidad:</strong> Entrevistas y tests con usuarios reales.</li>
+                    <li><strong>Arquitectura de Información:</strong> Jerarquía y navegación intuitiva.</li>
+                    <li><strong>Mapeo Relacional Sistémico:</strong> Análisis de dinámicas y procesos internos.</li>
+                    <li><strong>Diagnóstico organizacional & Design Ops:</strong> Herramienta para analizar cómo personas, procesos y herramientas se integran para generar valor.</li>
+                </ul>
             </div>
-            
-            <div class="grid-services">
-                <div class="service-card highlight bento-highlight gsap-reveal">
-                    <span class="badge">El más elegido</span>
-                    <h3>Product Discovery Sprint</h3>
-                    <p>Para emprendedores que quieren crear un producto digital desde cero. Validamos tu idea en tiempo récord antes de escribir una sola línea de código.</p>
-                    <ul class="deliverables">
-                        <li>Problema definido y validado</li>
-                        <li>Propuesta de valor clara</li>
-                        <li>Prototipo navegable</li>
-                        <li>Roadmap de desarrollo MVP</li>
-                    </ul>
-                </div>
-
-                <div class="bento-marketing-a gsap-reveal">
-                    <p class="bento-marketing-text">VérticeLab no es una fábrica de software. Somos tu laboratorio de innovación y crecimiento. No construimos código; construimos negocios.</p>
-                </div>
-
-                <div class="service-card bento-ux gsap-reveal">
-                    <h3>UX/UI & Design Systems</h3>
-                    <p>Para empresas que ya tienen un producto pero necesitan mejorar la experiencia, retener usuarios y escalar visualmente.</p>
-                    <ul class="deliverables">
-                        <li>Auditoría y rediseño UX</li>
-                        <li>Diseño de Interfaz (UI) moderna</li>
-                        <li>Prototipos interactivos</li>
-                        <li>Sistemas de diseño escalables</li>
-                    </ul>
-                </div>
-
-                <div class="service-card bento-branding gsap-reveal">
-                    <h3>Digital Branding</h3>
-                    <p>Las marcas digitales no se comportan como las tradicionales. Creamos identidades visuales pensadas nativamente para pantallas y apps.</p>
-                    <ul class="deliverables">
-                        <li>Identidad visual digital</li>
-                        <li>Guía de estilo UI</li>
-                        <li>Aplicación en producto</li>
-                    </ul>
-                </div>
-
-                <div class="bento-marketing-b gsap-reveal">
-                    <p class="bento-marketing-text">"La incubadora te enseña a volar. Nosotros te construimos el cohete."</p>
-                </div>
-
-                <div class="service-card bento-growth gsap-reveal">
-                    <h3>Digital Growth Strategy</h3>
-                    <p>Para productos digitales que ya están en el mercado y necesitan crecer de forma estructurada, predecible y basada en datos.</p>
-                    <ul class="deliverables">
-                        <li>Estrategia digital integral</li>
-                        <li>Diseño de Funnel de conversión</li>
-                        <li>Plan de contenidos</li>
-                        <li>Configuración analítica</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+        </div>
+    </div>
+</section>
 
         <section class="team container">
             <div class="services-header gsap-reveal">
                 <h2>El <span class="text-accent">equipo</span> detrás del código</h2>
             </div>
 
-            <div class="grid-team">
-                <div class="team-member gsap-reveal">
-                    <img src="images/karen.png" alt="Karen Bravo">
-                    <h3>Karen Bravo</h3>
-                    <span>Estrategia & Growth</span>
-                    <p>Ingeniera en Marketing y MBA. Especialista en marketing estratégico y desarrollo de ecosistemas de emprendimiento. Lidera iniciativas de innovación y estrategias digitales.</p>
-                </div>
-                <div class="team-member gsap-reveal">
-                    <img src="images/paulo.png" alt="Paulo Correa">
-                    <h3>Paulo Correa</h3>
-                    <span>Lead UX/UI & Diseño Estratégico</span>
-                    <p>Diseñador estratégico especializado en sistemas de diseño y productos digitales. Transforma requerimientos complejos en experiencias minimalistas y altamente funcionales.</p>
-                </div>
-            </div>
+          <div class="grid-team">
+        <div class="team-member gsap-reveal">
+            <img src="images/karen.png" alt="Karen Bravo">
+            <h3>Karen Bravo</h3>
+            <span>Estrategia & Growth</span>
+            <p>Ingeniera en Marketing y MBA. Especialista en marketing estratégico y desarrollo de ecosistemas de emprendimiento. Lidera iniciativas de innovación y estrategias digitales.</p>
+            <a href="https://www.linkedin.com/in/karen-bravo/" target="_blank" rel="noopener noreferrer" class="linkedin-link">
+                <svg class="linkedin-icon" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                LinkedIn
+            </a>
+        </div>
+
+        <div class="team-member gsap-reveal">
+            <img src="images/paulo.png" alt="Paulo Correa">
+            <h3>Paulo Correa</h3>
+            <span>Lead UX/UI & Diseño Estratégico</span>
+            <p>Diseñador estratégico especializado en sistemas de diseño y productos digitales. Transforma requerimientos complejos en experiencias minimalistas y altamente funcionales.</p>
+            <a href="https://www.linkedin.com/in/paulo-correa" target="_blank" rel="noopener noreferrer" class="linkedin-link">
+                <svg class="linkedin-icon" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                LinkedIn
+            </a>
+        </div>
+
+
+
+
+            
         </section>
 
 <section id="contacto" class="contact-section">
@@ -894,7 +1697,7 @@
 
     </div>
 </section>
-<section class="parallax-divider"></section>
+
 
     </main>
 
@@ -920,7 +1723,9 @@
         // 2. Seleccionamos las imágenes específicas del equipo por su atributo 'alt' (mantener lógica anterior)
         const karenImg = document.querySelector('.team-member img[alt="Karen Bravo"]');
         const pauloImg = document.querySelector('.team-member img[alt="Paulo Correa"]');
-
+// Agregamos la referencia al reproductor de video al inicio de tus selecciones
+const videoPlayer = document.getElementById('hero-video-player');
+const videoSource = document.getElementById('video-source');
         // 3. Breakpoint de mobile (por ejemplo, 768px, coincide con CSS si usaras media queries)
         const mobileBreakpoint = 768; 
 
@@ -949,7 +1754,25 @@
                 karenImg.src = 'images/karen.png';
                 pauloImg.src = 'images/paulo.png';
             }
+
+
+const newVideoPath = theme === 'dark' ? 'images/hero_video-dark.mp4' : 'images/hero_video.mp4';
+    
+    // Solo recargamos si el path ha cambiado para evitar parpadeos innecesarios
+    if (videoSource.getAttribute('src') !== newVideoPath) {
+        videoSource.setAttribute('src', newVideoPath);
+        videoPlayer.load(); // Crítico para que el navegador cargue el nuevo archivo
+        videoPlayer.play(); // Asegura que siga reproduciéndose
+    }
+
         }
+
+
+
+
+
+
+
 
         // 5. Función para manejar el evento de cambio de tamaño de ventana (resize)
         function handleResize() {
@@ -1008,6 +1831,22 @@
                 ease: "power3.out"
             });
         });
+
+        // --- NUEVA ANIMACIÓN PARALLAX PARA TEXTURA DEL HERO ---
+        if (window.innerWidth > 992) {
+            gsap.to(".hero", {
+                scrollTrigger: {
+                    trigger: "#hero-section",
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true
+                },
+                backgroundPosition: "0px 100px", // Mueve la textura sutilmente
+                ease: "none"
+            });
+        }
+
+
         // Lógica para el intercambio de botones (Hero -> Nav)
 const heroCta = document.getElementById('hero-cta');
 const navCta = document.getElementById('nav-cta');
@@ -1073,6 +1912,55 @@ document.addEventListener('DOMContentLoaded', () => {
         splash.style.display = 'none';
     }
 });
+
+
+
+
+// Animación de entrada de las formas principales
+    gsap.from(".info-stage", {
+        scrollTrigger: {
+            trigger: ".stingray-infographic-container",
+            start: "top 80%",
+        },
+        opacity: 0,
+        y: 20,
+        stagger: 0.2,
+        duration: 0.8,
+        ease: "power2.out"
+    });
+
+    // Animación de expansión secuencial de las capas de Iteración
+    const layers = document.querySelectorAll('.iterate-layer');
+    layers.forEach((layer, index) => {
+        // Obtenemos el ancho final definido en el CSS
+        const finalWidth = window.getComputedStyle(layer).width;
+        
+        gsap.from(layer, {
+            scrollTrigger: {
+                trigger: ".stage-iterate-layers",
+                start: "top 85%",
+            },
+            width: "0%", // Empieza desde ancho cero
+            delay: 0.6 + (index * 0.15), // Stagger manual para un efecto 'cebolla'
+            duration: 1.2,
+            ease: "expo.out"
+        });
+    });
+
+    // Animación del punto final
+    gsap.from(".validation-endpoint", {
+        scrollTrigger: {
+            trigger: ".stage-iterate-layers",
+            start: "top 85%",
+        },
+        scale: 0,
+        opacity: 0,
+        delay: 2.2, // Aparece justo después de las capas
+        duration: 0.5,
+        ease: "back.out(1.7)"
+    });
+
+
     </script>
 </body>
 </html>
